@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
-// import * as ROUTES from '../constants/routes';
+import * as ROUTES from '../constants/routes';
+import doesUserNameExist from '../services/firebase';
 
 /* eslint-disable no-unused-vars */
 
@@ -20,10 +21,36 @@ export default function SignUp() {
   const handleSignUp = async (event) => {
     event.preventDefault();
 
-    // try {
+    const userNameExists = await doesUserNameExist(userName);
 
-    // } catch (error) {
-    // }
+    if (!userNameExists.length) {
+      try {
+        const createdUserResult = await firebase.auth()
+          .createUserWithEmailAndPassword(emailAddress, password);
+
+        await createdUserResult.user.updateProfile({
+          displayName: userName,
+        });
+
+        await firebase.firestore().collection('users').add({
+          userId: createdUserResult.user.uid,
+          username: userName.toLowerCase(),
+          fullName,
+          emailAddress: emailAddress.toLowerCase(),
+          following: [],
+          dateCreated: Date.now(),
+        });
+
+        history.push(ROUTES.DASHBOARD);
+      } catch (error) {
+        setFullName('');
+        setEmailAddress('');
+        setPassword('');
+        setError(error.message);
+      }
+    } else {
+      setError('Username already taken, please try another.');
+    }
   };
 
   useEffect(() => {
@@ -61,7 +88,7 @@ export default function SignUp() {
               placeholder="Full name"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setFullName(target.value)}
-              value={fullName || ''}
+              value={fullName}
             />
 
             <input
@@ -70,7 +97,7 @@ export default function SignUp() {
               placeholder="Email address."
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setEmailAddress(target.value)}
-              value={emailAddress || ''}
+              value={emailAddress}
             />
 
             <input
@@ -79,7 +106,7 @@ export default function SignUp() {
               placeholder="Password."
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setPassword(target.value)}
-              value={password || ''}
+              value={password}
             />
 
             <button disabled={isInvalid} type="submit" className={`bg-blue-500  text-white w-full rounded h-8 font-bold ${isInvalid && 'opacity-40'}`}> Sign Up </button>
@@ -89,8 +116,8 @@ export default function SignUp() {
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
           <p className="text-sm">
             Have an account?
-            <Link to="/signup" className="font-bold text-blue-medium">
-              Sign up
+            <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium">
+              Login
             </Link>
 
           </p>
