@@ -1,25 +1,35 @@
-import { useState, useEffect, useContext } from 'react';
-import FirebaseContext from '../context/firebase';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Route, Redirect } from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
 
-export default function useAuthListener() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-  const { firebase } = useContext(FirebaseContext);
-
-  useEffect(() => {
-    const listener = firebase.auth()
-      .onAuthStateChanged((authUser) => {
-        if (authUser) {
-          localStorage.setItem('authUser', JSON.stringify(authUser));
-
-          setUser(authUser);
-        } else {
-          localStorage.removeItem('authUser');
-          setUser(null);
+export default function ProtectedRoute({ user, children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => {
+        if (user) {
+          return React.cloneElement(children, { user });
         }
-      });
 
-    return () => listener();
-  }, [firebase]);
+        if (!user) {
+          return (
+            <Redirect
+              to={{
+                pathname: ROUTES.LOGIN,
+                state: { from: location }
+              }}
+            />
+          );
+        }
 
-  return { user };
+        return null;
+      }}
+    />
+  );
 }
+
+ProtectedRoute.propTypes = {
+  user: PropTypes.object,
+  children: PropTypes.object.isRequired
+};

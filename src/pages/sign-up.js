@@ -29,7 +29,7 @@ export default function SignUp() {
         // authentication
         // -> emailAddress & password & username (displayName)
         await createdUserResult.user.updateProfile({
-          displayName: username,
+          displayName: username
         });
 
         // firebase user collection (create a document)
@@ -43,7 +43,7 @@ export default function SignUp() {
             emailAddress: emailAddress.toLowerCase(),
             following: ['2'],
             followers: [],
-            dateCreated: Date.now(),
+            dateCreated: Date.now()
           });
 
         history.push(ROUTES.DASHBOARD);
@@ -121,8 +121,7 @@ export default function SignUp() {
         </div>
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
           <p className="text-sm">
-            Have an account?
-            {' '}
+            Have an account?{` `}
             <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium">
               Login
             </Link>
