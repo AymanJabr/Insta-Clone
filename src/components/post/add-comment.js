@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import FirebaseContext from '../../context/firebase';
 import UserContext from '../../context/user';
 
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+
 export default function AddComment({
   docId, comments, setComments, commentInput,
 }) {
@@ -32,7 +35,9 @@ export default function AddComment({
       <form
         className="flex justify-between pl-0 pr-5"
         method="POST"
-        onSubmit={(event) => (comment.length >= 1 ? handleSubmitComment(event) : event.preventDefault())}
+        onSubmit={
+          (event) => (comment.length >= 1 ? handleSubmitComment(event) : event.preventDefault())
+        }
       >
         <input
           aria-label="Add a comment"

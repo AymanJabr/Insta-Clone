@@ -6,6 +6,9 @@ import Actions from './actions';
 import Footer from './footer';
 import Comments from './comments';
 
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+
 export default function Post({ content }) {
   const commentInput = useRef(null);
   const handleFocus = () => commentInput.current.focus();

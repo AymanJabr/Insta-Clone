@@ -5,6 +5,9 @@ import Skeleton from 'react-loading-skeleton';
 import { getSuggestedProfiles } from '../../services/firebase';
 import SuggestedProfile from './suggested-profile';
 
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+
 export default function Suggestions({ userId, following, loggedInUserDocId }) {
   const [profiles, setProfiles] = useState(null);
 

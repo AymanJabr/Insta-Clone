@@ -4,6 +4,8 @@ import { formatDistance } from 'date-fns';
 import { Link } from 'react-router-dom';
 import AddComment from './add-comment';
 
+/* eslint-disable react/forbid-prop-types */
+
 export default function Comments({
   docId, comments: allComments, posted, commentInput,
 }) {

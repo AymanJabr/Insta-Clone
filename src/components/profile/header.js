@@ -5,7 +5,10 @@ import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/use-user';
 import { isUserFollowingProfile, toggleFollow } from '../../services/firebase';
 import UserContext from '../../context/user';
-import { DEFAULT_IMAGE_PATH } from '../../constants/paths';
+import DEFAULT_IMAGE_PATH from '../../constants/paths';
+
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
 
 export default function Header({
   photosCount,

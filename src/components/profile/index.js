@@ -4,6 +4,9 @@ import Header from './header';
 import Photos from './photos';
 import { getUserPhotosByUserId } from '../../services/firebase';
 
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/require-default-props */
+
 export default function Profile({ user }) {
   const reducer = (state, newState) => ({ ...state, ...newState });
   const initialState = {
