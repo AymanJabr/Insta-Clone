@@ -19,7 +19,7 @@ export async function getUserByUsername(username) {
 
   return result.docs.map((item) => ({
     ...item.data(),
-    docId: item.id,
+    docId: item.id
   }));
 }
 
@@ -28,7 +28,7 @@ export async function getUserByUserId(userId) {
   const result = await firebase.firestore().collection('users').where('userId', '==', userId).get();
   const user = result.docs.map((item) => ({
     ...item.data(),
-    docId: item.id,
+    docId: item.id
   }));
 
   return user;
@@ -47,7 +47,7 @@ export async function getSuggestedProfiles(userId, following) {
 
   const profiles = result.docs.map((user) => ({
     ...user.data(),
-    docId: user.id,
+    docId: user.id
   }));
 
   return profiles;
@@ -56,7 +56,7 @@ export async function getSuggestedProfiles(userId, following) {
 export async function updateLoggedInUserFollowing(
   loggedInUserDocId, // currently logged in user document id (karl's profile)
   profileId, // the user that karl requests to follow
-  isFollowingProfile, // true/false (am i currently following this person?)
+  isFollowingProfile // true/false (am i currently following this person?)
 ) {
   return firebase
     .firestore()
@@ -65,14 +65,14 @@ export async function updateLoggedInUserFollowing(
     .update({
       following: isFollowingProfile
         ? FieldValue.arrayRemove(profileId)
-        : FieldValue.arrayUnion(profileId),
+        : FieldValue.arrayUnion(profileId)
     });
 }
 
 export async function updateFollowedUserFollowers(
   profileDocId, // currently logged in user document id (karl's profile)
   loggedInUserDocId, // the user that karl requests to follow
-  isFollowingProfile, // true/false (am i currently following this person?)
+  isFollowingProfile // true/false (am i currently following this person?)
 ) {
   return firebase
     .firestore()
@@ -81,7 +81,7 @@ export async function updateFollowedUserFollowers(
     .update({
       followers: isFollowingProfile
         ? FieldValue.arrayRemove(loggedInUserDocId)
-        : FieldValue.arrayUnion(loggedInUserDocId),
+        : FieldValue.arrayUnion(loggedInUserDocId)
     });
 }
 
@@ -95,7 +95,7 @@ export async function getPhotos(userId, following) {
 
   const userFollowedPhotos = result.docs.map((photo) => ({
     ...photo.data(),
-    docId: photo.id,
+    docId: photo.id
   }));
 
   const photosWithUserDetails = await Promise.all(
@@ -109,7 +109,7 @@ export async function getPhotos(userId, following) {
       // raphael
       const { username } = user[0];
       return { username, ...photo, userLikedPhoto };
-    }),
+    })
   );
 
   return photosWithUserDetails;
@@ -124,7 +124,7 @@ export async function getUserPhotosByUserId(userId) {
 
   const photos = result.docs.map((photo) => ({
     ...photo.data(),
-    docId: photo.id,
+    docId: photo.id
   }));
   return photos;
 }
@@ -139,7 +139,7 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
 
   const [response = {}] = result.docs.map((item) => ({
     ...item.data(),
-    docId: item.id,
+    docId: item.id
   }));
 
   return response.userId;
@@ -150,7 +150,7 @@ export async function toggleFollow(
   activeUserDocId,
   profileDocId,
   profileUserId,
-  followingUserId,
+  followingUserId
 ) {
   // 1st param: karl's doc id
   // 2nd param: raphael's user id
