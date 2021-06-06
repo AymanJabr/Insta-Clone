@@ -9,7 +9,7 @@ export default function Photos({ photos }) {
         {!photos
           ? new Array(12).fill(0).map((_, i) => <Skeleton key={i} width={320} height={400} />)
           : photos.length > 0
-          ? photos.map((photo) => (
+            ? photos.map((photo) => (
               <div key={photo.docId} className="relative group">
                 <img src={photo.imageSrc} alt={photo.caption} />
 
@@ -48,7 +48,7 @@ export default function Photos({ photos }) {
                 </div>
               </div>
             ))
-          : null}
+            : null}
       </div>
 
       {!photos || (photos.length === 0 && <p className="text-center text-2xl">No Posts Yet</p>)}
@@ -57,5 +57,5 @@ export default function Photos({ photos }) {
 }
 
 Photos.propTypes = {
-  photos: PropTypes.array
+  photos: PropTypes.array,
 };

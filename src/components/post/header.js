@@ -20,5 +20,5 @@ export default function Header({ username }) {
 }
 
 Header.propTypes = {
-  username: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
 };

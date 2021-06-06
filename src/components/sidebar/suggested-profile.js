@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   updateLoggedInUserFollowing,
   updateFollowedUserFollowers,
-  getUserByUserId
+  getUserByUserId,
 } from '../../services/firebase';
 import LoggedInUserContext from '../../context/logged-in-user';
 
@@ -13,7 +13,7 @@ export default function SuggestedProfile({
   username,
   profileId,
   userId,
-  loggedInUserDocId
+  loggedInUserDocId,
 }) {
   const [followed, setFollowed] = useState(false);
   const { setActiveUser } = useContext(LoggedInUserContext);
@@ -34,7 +34,7 @@ export default function SuggestedProfile({
           src={`/images/avatars/${username}.jpg`}
           alt=""
           onError={(e) => {
-            e.target.src = `/images/avatars/default.png`;
+            e.target.src = '/images/avatars/default.png';
           }}
         />
         <Link to={`/p/${username}`}>
@@ -57,5 +57,5 @@ SuggestedProfile.propTypes = {
   username: PropTypes.string.isRequired,
   profileId: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
-  loggedInUserDocId: PropTypes.string.isRequired
+  loggedInUserDocId: PropTypes.string.isRequired,
 };

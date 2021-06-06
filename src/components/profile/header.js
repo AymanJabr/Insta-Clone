@@ -17,8 +17,8 @@ export default function Header({
     fullName,
     followers,
     following,
-    username: profileUsername
-  }
+    username: profileUsername,
+  },
 }) {
   const { user: loggedInUser } = useContext(UserContext);
   const { user } = useUser(loggedInUser?.uid);
@@ -28,7 +28,7 @@ export default function Header({
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
     setFollowerCount({
-      followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1
+      followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1,
     });
     await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId);
   };
@@ -88,15 +88,19 @@ export default function Header({
           ) : (
             <>
               <p className="mr-10">
-                <span className="font-bold">{photosCount}</span> photos
+                <span className="font-bold">{photosCount}</span>
+                {' '}
+                photos
               </p>
               <p className="mr-10">
                 <span className="font-bold">{followerCount}</span>
-                {` `}
-                {followerCount === 1 ? `follower` : `followers`}
+                {' '}
+                {followerCount === 1 ? 'follower' : 'followers'}
               </p>
               <p className="mr-10">
-                <span className="font-bold">{following?.length}</span> following
+                <span className="font-bold">{following?.length}</span>
+                {' '}
+                following
               </p>
             </>
           )}
@@ -119,6 +123,6 @@ Header.propTypes = {
     fullName: PropTypes.string,
     username: PropTypes.string,
     followers: PropTypes.array,
-    following: PropTypes.array
-  }).isRequired
+    following: PropTypes.array,
+  }).isRequired,
 };

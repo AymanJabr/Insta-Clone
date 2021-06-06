@@ -42,6 +42,6 @@ Post.propTypes = {
     userLikedPhoto: PropTypes.bool.isRequired,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
-    dateCreated: PropTypes.number.isRequired
-  })
+    dateCreated: PropTypes.number.isRequired,
+  }),
 };

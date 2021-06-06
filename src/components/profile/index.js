@@ -9,12 +9,12 @@ export default function Profile({ user }) {
   const initialState = {
     profile: {},
     photosCollection: null,
-    followerCount: 0
+    followerCount: 0,
   };
 
   const [{ profile, photosCollection, followerCount }, dispatch] = useReducer(
     reducer,
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -46,6 +46,6 @@ Profile.propTypes = {
     following: PropTypes.array,
     fullName: PropTypes.string,
     userId: PropTypes.string,
-    username: PropTypes.string
-  })
+    username: PropTypes.string,
+  }),
 };

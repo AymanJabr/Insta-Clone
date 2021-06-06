@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import FirebaseContext from '../../context/firebase';
 import UserContext from '../../context/user';
 
-export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) {
+export default function Actions({
+  docId, totalLikes, likedPhoto, handleFocus,
+}) {
   const {
-    user: { uid: userId }
+    user: { uid: userId },
   } = useContext(UserContext);
   const [toggleLiked, setToggleLiked] = useState(likedPhoto);
   const [likes, setLikes] = useState(totalLikes);
@@ -19,7 +21,7 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
       .collection('photos')
       .doc(docId)
       .update({
-        likes: toggleLiked ? FieldValue.arrayRemove(userId) : FieldValue.arrayUnion(userId)
+        likes: toggleLiked ? FieldValue.arrayRemove(userId) : FieldValue.arrayUnion(userId),
       });
 
     setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
@@ -87,5 +89,5 @@ Actions.propTypes = {
   docId: PropTypes.string.isRequired,
   totalLikes: PropTypes.number.isRequired,
   likedPhoto: PropTypes.bool.isRequired,
-  handleFocus: PropTypes.func.isRequired
+  handleFocus: PropTypes.func.isRequired,
 };

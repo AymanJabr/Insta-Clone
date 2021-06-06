@@ -17,7 +17,7 @@ export default function ProtectedRoute({ user, children, ...rest }) {
             <Redirect
               to={{
                 pathname: ROUTES.LOGIN,
-                state: { from: location }
+                state: { from: location },
               }}
             />
           );
@@ -31,5 +31,5 @@ export default function ProtectedRoute({ user, children, ...rest }) {
 
 ProtectedRoute.propTypes = {
   user: PropTypes.object,
-  children: PropTypes.object.isRequired
+  children: PropTypes.object.isRequired,
 };

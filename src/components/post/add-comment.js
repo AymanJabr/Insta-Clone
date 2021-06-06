@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import FirebaseContext from '../../context/firebase';
 import UserContext from '../../context/user';
 
-export default function AddComment({ docId, comments, setComments, commentInput }) {
+export default function AddComment({
+  docId, comments, setComments, commentInput,
+}) {
   const [comment, setComment] = useState('');
   const { firebase, FieldValue } = useContext(FirebaseContext);
   const {
-    user: { displayName }
+    user: { displayName },
   } = useContext(UserContext);
 
   const handleSubmitComment = (event) => {
@@ -21,7 +23,7 @@ export default function AddComment({ docId, comments, setComments, commentInput 
       .collection('photos')
       .doc(docId)
       .update({
-        comments: FieldValue.arrayUnion({ displayName, comment })
+        comments: FieldValue.arrayUnion({ displayName, comment }),
       });
   };
 
@@ -30,9 +32,7 @@ export default function AddComment({ docId, comments, setComments, commentInput 
       <form
         className="flex justify-between pl-0 pr-5"
         method="POST"
-        onSubmit={(event) =>
-          comment.length >= 1 ? handleSubmitComment(event) : event.preventDefault()
-        }
+        onSubmit={(event) => (comment.length >= 1 ? handleSubmitComment(event) : event.preventDefault())}
       >
         <input
           aria-label="Add a comment"
@@ -62,5 +62,5 @@ AddComment.propTypes = {
   docId: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   setComments: PropTypes.func.isRequired,
-  commentInput: PropTypes.object
+  commentInput: PropTypes.object,
 };
